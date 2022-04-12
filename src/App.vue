@@ -1,10 +1,10 @@
 <template>
-  <a-space>
-    <a-button type="primary">Primary</a-button>
-    <a-button>Secondary</a-button>
-    <a-button type="dashed">Dashed</a-button>
-    <a-button type="outline">Outline</a-button>
-    <a-button type="text">Text</a-button>
-  </a-space>
+  <a-config-provider>
+    <router-view />
+    <global-setting />
+  </a-config-provider>
 </template>
+
+<script setup lang="ts"></script>
+
 <style></style>
