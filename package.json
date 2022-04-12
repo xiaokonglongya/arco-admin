@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.23.0",
-    "unplugin-vue-components": "^0.19.2",
     "vue": "^3.2.25"
   },
   "devDependencies": {
