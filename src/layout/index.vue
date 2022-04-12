@@ -5,7 +5,9 @@
     </div>
     <a-layout>
       <a-layout>
-        <a-layout-sider class="layout-sider">Sider</a-layout-sider>
+        <a-layout-sider class="layout-sider" :style="{ paddingTop: '60px' }">
+          <Menu />
+        </a-layout-sider>
         <a-layout class="layout-content" :style="paddingStyle">
           <a-layout-content>
             <page-layout />
@@ -20,7 +22,7 @@
 import { computed } from 'vue'
 import PageLayout from './components/PageLayout.vue'
 import NavBar from './components/NavBar.vue'
-
+import Menu from './components/Menu.vue'
 const paddingStyle = computed(() => {
   return {
     paddingLeft: '200px',

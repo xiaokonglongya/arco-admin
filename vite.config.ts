@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 // eslint-disable-next-line import/no-unresolved
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -13,7 +14,8 @@ export default defineConfig({
       dirs: [], // Avoid parsing src/components.  避免解析到src/components
       deep: false,
       resolvers: [ArcoResolver()]
-    })
+    }),
+    vueJsx()
   ],
   resolve: {
     alias: [
@@ -24,7 +26,11 @@ export default defineConfig({
       {
         find: 'assets',
         replacement: resolve(__dirname, './src/assets')
-      }
+      },
+      {
+        find: 'vue',
+        replacement: 'vue/dist/vue.esm-bundler.js', // compile template
+      },
     ],
     extensions: ['.ts', '.js']
   },
