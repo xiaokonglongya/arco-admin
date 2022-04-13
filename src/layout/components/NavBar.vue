@@ -28,12 +28,14 @@
     </ul>
   </div>
 </template>
+
 <script setup lang="ts">
 import config from '@/config/index'
 import { useAppStore } from '@/store/index'
 import { useDark, useToggle } from '@vueuse/core'
-import UserDrop from './UserDrop.vue'
 import { computed } from 'vue'
+import UserDrop from './UserDrop.vue'
+
 const appStore = useAppStore()
 const theme = computed(() => {
   return appStore.theme

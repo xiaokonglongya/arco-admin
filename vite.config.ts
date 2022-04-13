@@ -17,6 +17,9 @@ export default defineConfig({
     }),
     vueJsx()
   ],
+  server: {
+    host: true
+  },
   resolve: {
     alias: [
       {
@@ -29,8 +32,8 @@ export default defineConfig({
       },
       {
         find: 'vue',
-        replacement: 'vue/dist/vue.esm-bundler.js', // compile template
-      },
+        replacement: 'vue/dist/vue.esm-bundler.js' // compile template
+      }
     ],
     extensions: ['.ts', '.js']
   },

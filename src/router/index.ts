@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import setupRouterGuard from './guard/index'
 import Login from './modules/login'
 import appRoutes from './modules'
 
@@ -25,5 +26,5 @@ const router = createRouter({
     return { top: 0 }
   }
 })
-
+setupRouterGuard(router)
 export default router

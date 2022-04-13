@@ -1,5 +1,3 @@
-import { RouteRecordRaw } from 'vue-router'
-
 export default {
   path: '/login',
   name: 'login',
@@ -7,4 +5,4 @@ export default {
   meta: {
     requiresAuth: false
   }
-} as RouteRecordRaw
+}

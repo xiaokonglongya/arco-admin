@@ -1,15 +1,18 @@
 <script lang="tsx">
-import { compile, computed, defineComponent, h } from 'vue'
+import { listenerRouterChange } from '@/utils/router-listener'
+import { compile, computed, defineComponent, h, ref } from 'vue'
 import { RouteRecordNormalized, RouteRecordRaw, useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
-    const goto = (item: RouteRecordRaw) => {
+    const router = useRouter()
+
+    const goto = (item?: RouteRecordRaw | null) => {
+      if (!item) return
       router.push({
         name: item.name
       })
     }
-    const router = useRouter()
     /**
      * 拿到本地路由表中所有的路由数据
      */
@@ -26,7 +29,7 @@ export default defineComponent({
       copyRouter.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0))
 
       function travel(_router: RouteRecordRaw[], layer: number) {
-        if (!_router) return
+        if (!_router) return null
         const collector = _router.map((element) => {
           // 如果没有跟节点，代表已经是最字集了
           if (!element.children) {
@@ -53,51 +56,55 @@ export default defineComponent({
       return travel(copyRouter, 0)
     })
     const renderSubMenu = () => {
-      function travel(_router: (RouteRecordRaw | null)[] | undefined, nodes = []) {
-        if (_router) {
-          _router.forEach((element) => {
-            const icon = element?.meta?.icon ? `<${element?.meta?.icon}/>` : ``
-            function vIcon(routerItem: RouteRecordRaw | null) {
-              return routerItem?.meta?.icon ? `<${routerItem?.meta?.icon}/>` : ``
-            }
-            const r = (
-              <a-sub-menu
-                key={element?.name}
-                v-slots={{
-                  icon: () => h(compile(vIcon(element))),
-                  title: () => h(compile(element?.meta?.label || ''))
-                }}
-              >
-                {element?.children?.map((elem) => {
-                  return (
-                    <a-menu-item
-                      key={elem.name}
-                      v-slots={{
-                        icon: () => h(compile(vIcon(elem)))
-                      }}
-                      onClick={() => goto(elem)}
-                    >
-                      {elem?.meta?.label || ''}
-                      {travel(elem.children ?? [])}
-                    </a-menu-item>
-                  )
-                })}
-              </a-sub-menu>
-            )
-            nodes.push(r as never)
-          })
-          return nodes
-        }
+      function travel(_router: RouteRecordRaw[], nodes = []) {
+        if (!_router) return []
+        _router.forEach((element) => {
+          function vIcon(routerItem: RouteRecordRaw | null) {
+            return routerItem?.meta?.icon ? `<${routerItem?.meta?.icon}/>` : ``
+          }
+          const r = element?.children ? (
+            <a-sub-menu
+              key={element?.name}
+              v-slots={{
+                icon: () => h(compile(vIcon(element))),
+                title: () => h(compile(element?.meta?.label || ''))
+              }}
+            >
+              {travel(element.children)}
+            </a-sub-menu>
+          ) : (
+            <a-menu-item
+              key={element?.name}
+              v-slots={{
+                icon: () => h(compile(vIcon(element)))
+              }}
+              onClick={() => goto(element)}
+            >
+              {element?.meta?.label || ''}
+            </a-menu-item>
+          )
+          nodes.push(r as never)
+        })
+        return nodes
       }
-      return travel(menuTree.value)
+      return travel(menuTree.value as RouteRecordRaw[])
     }
+    const selectKey = ref<string[]>([])
+    listenerRouterChange((changeRouter) => {
+      const cloneChangeRouter = JSON.parse(JSON.stringify(changeRouter))
+      const lastRouteMatched = cloneChangeRouter.matched.pop()
+      if (changeRouter.meta.requiresAuth && !changeRouter.meta.hideInMenu) {
+        const key = lastRouteMatched?.name as string
+        selectKey.value = [key]
+      }
+    })
     return () => (
       <a-menu
         auto-open={false}
         style="height: 100%"
-        level-indent={34}
-        default-open-keys="['0']"
-        default-selected-keys="['0_2']"
+        level-indent={10}
+        selected-keys={selectKey.value}
+        auto-open-selected={true}
       >
         {renderSubMenu()}
       </a-menu>

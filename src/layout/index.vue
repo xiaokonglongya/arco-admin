@@ -10,6 +10,12 @@
         </a-layout-sider>
         <a-layout class="layout-content" :style="paddingStyle">
           <a-layout-content>
+            <div class="layout-content-tabbar">
+              <TabBar />
+            </div>
+            <!-- <div class="layout-content-breadcumb">
+              <Breadcrumb />
+            </div> -->
             <page-layout />
           </a-layout-content>
         </a-layout>
@@ -23,6 +29,9 @@ import { computed } from 'vue'
 import PageLayout from './components/PageLayout.vue'
 import NavBar from './components/NavBar.vue'
 import Menu from './components/Menu.vue'
+import Breadcrumb from './components/Breadcrumb.vue'
+import TabBar from './components/TabBar.vue'
+
 const paddingStyle = computed(() => {
   return {
     paddingLeft: '200px',

@@ -1,3 +1,3 @@
 export default {
-  name: 'Acor Admin'
+  name: 'Arco Admin'
 }
