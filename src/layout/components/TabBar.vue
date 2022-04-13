@@ -14,7 +14,12 @@
         <span class="tag-title">
           {{ tag.title }}
         </span>
-        <icon-close v-if="index !== 0" class="tag-close" :size="14" />
+        <icon-close
+          v-if="index !== 0"
+          class="tag-close"
+          :size="14"
+          @click.stop="removeTag(index, tag)"
+        />
       </div>
     </div>
   </div>
@@ -41,7 +46,9 @@ listenerRouterChange((route) => {
     tabBarStore.updateTableList(route)
   }
 }, true)
-
+const removeTag = (index: number, tag: TagProps) => {
+  tabBarStore.deleteTag(index, tag)
+}
 const goto = (tag: TagProps) => {
   router.push({
     ...tag
