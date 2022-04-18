@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup name="ParentLayout">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useTabBarState } from '@/store/index'
 
 const tabBarStore = useTabBarState()

@@ -18,7 +18,7 @@
 import { computed } from 'vue'
 import pkg from '../../../package.json'
 
-const { dependencies, devDependencies, name, version } = pkg
+const { dependencies, devDependencies, version } = pkg
 
 const useVersion = computed(() => {
   return [
@@ -34,13 +34,13 @@ const useVersion = computed(() => {
 })
 const useDevDependencies = computed(() => {
   return Object.keys(devDependencies).map((e) => {
-    return { label: e, value: devDependencies[e] }
+    return { label: e, value: (devDependencies as any)[e] }
   })
 })
 
 const useDependencies = computed(() => {
   return Object.keys(dependencies).map((e) => {
-    return { label: e, value: dependencies[e] }
+    return { label: e, value: (dependencies as any)[e] }
   })
 })
 </script>
