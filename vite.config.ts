@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 // eslint-disable-next-line import/no-unresolved
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -15,7 +16,8 @@ export default defineConfig({
       deep: false,
       resolvers: [ArcoResolver()]
     }),
-    vueJsx()
+    vueJsx(),
+    VueSetupExtend()
   ],
   server: {
     host: true

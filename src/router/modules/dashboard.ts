@@ -18,33 +18,7 @@ export default {
         roles: ['*'],
         label: '工作台',
         icon: 'icon-dashboard'
-        // hideBread: true
-      },
-      children: [
-        {
-          path: 'workplace2',
-          name: 'Workplace2',
-          component: () => import('@/views/dashboard/workplace/index.vue'),
-          meta: {
-            requiresAuth: true,
-            roles: ['*'],
-            label: '工作台2',
-            icon: 'icon-dashboard'
-            // hideBread: true
-          }
-        },
-        {
-          path: 'monitor2',
-          name: 'monitor2',
-          component: () => import('@/views/dashboard/monitor/index.vue'),
-          meta: {
-            requiresAuth: true,
-            roles: ['*'],
-            label: '监控台2',
-            icon: 'icon-dashboard'
-          }
-        }
-      ]
+      }
     },
     {
       path: 'monitor',

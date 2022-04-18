@@ -8,7 +8,7 @@ import appRoutes from './modules'
 const staticRoutes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/dashboard/workplace'
   },
   Login,
   {

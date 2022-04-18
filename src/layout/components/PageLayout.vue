@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="ParentLayout">
 import { computed, ref } from 'vue'
 import { useTabBarState } from '@/store/index'
 
@@ -34,6 +34,6 @@ const cacheList = computed(() => {
 .scale-enter-from,
 .scale-leave-to {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.99);
 }
 </style>

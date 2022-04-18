@@ -9,7 +9,7 @@ const pipeTag = (route: RouteLocationNormalized) => {
 const useTabBarState = defineStore('tabBar', {
   state: (): TabBarState => ({
     tagList: [],
-    cacheTabList: new Set()
+    cacheTabList: new Set(['Level'])
   }),
   getters: {
     getTabList(): TagProps[] {
