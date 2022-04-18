@@ -46,13 +46,14 @@ listenerRouterChange((route) => {
     tabBarStore.updateTableList(route)
   }
 }, true)
-const removeTag = (index: number, tag: TagProps) => {
-  tabBarStore.deleteTag(index, tag)
-}
 const goto = (tag: TagProps) => {
   router.push({
     ...tag
   })
+}
+const removeTag = (index: number, tag: TagProps) => {
+  tabBarStore.deleteTag(index, tag)
+  goto(tagList.value[tagList.value.length - 1])
 }
 </script>
 
@@ -106,6 +107,7 @@ const goto = (tag: TagProps) => {
       &-title {
         margin-left: 8px;
         color: var(--color-text-1);
+        white-space: nowrap;
       }
       &-close {
         margin-left: 20px;
