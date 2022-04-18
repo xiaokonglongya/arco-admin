@@ -1,3 +1,3 @@
 <template>
-  <div>数据看班</div>
+  <div>数据看板</div>
 </template>

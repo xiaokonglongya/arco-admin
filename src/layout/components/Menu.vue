@@ -93,7 +93,7 @@ export default defineComponent({
     listenerRouterChange((changeRouter) => {
       const cloneChangeRouter = JSON.parse(JSON.stringify(changeRouter))
       const lastRouteMatched = cloneChangeRouter.matched.pop()
-      if (changeRouter.meta.requiresAuth && !changeRouter.meta.hideInMenu) {
+      if (!changeRouter.meta.hideInMenu) {
         const key = lastRouteMatched?.name as string
         selectKey.value = [key]
       }
