@@ -24,7 +24,9 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.23.0",
+    "@types/lodash": "^4.14.182",
     "@vueuse/core": "^8.2.5",
+    "lodash": "^4.17.21",
     "mitt": "^3.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",

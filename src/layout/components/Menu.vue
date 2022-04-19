@@ -2,6 +2,7 @@
 import { listenerRouterChange } from '@/utils/router-listener'
 import { compile, computed, defineComponent, h, ref } from 'vue'
 import { RouteRecordNormalized, RouteRecordRaw, useRouter } from 'vue-router'
+import { cloneDeep } from 'lodash'
 
 export default defineComponent({
   setup() {
@@ -22,9 +23,7 @@ export default defineComponent({
 
     const menuTree = computed(() => {
       // 快速实现深拷贝
-      const copyRouter = JSON.parse(
-        JSON.stringify(appRoute.value.children)
-      ) as RouteRecordNormalized[]
+      const copyRouter = cloneDeep(appRoute.value.children) as RouteRecordNormalized[]
       // 根据order 进行排序，如果需要从后台返回排序修改这里排序规则即可
       copyRouter.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0))
 
@@ -91,7 +90,7 @@ export default defineComponent({
     }
     const selectKey = ref<string[]>([])
     listenerRouterChange((changeRouter) => {
-      const cloneChangeRouter = JSON.parse(JSON.stringify(changeRouter))
+      const cloneChangeRouter = cloneDeep(changeRouter)
       const lastRouteMatched = cloneChangeRouter.matched.pop()
       if (!changeRouter.meta.hideInMenu) {
         const key = lastRouteMatched?.name as string
