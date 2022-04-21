@@ -1,5 +1,5 @@
 export interface AppState {
-  theme: string
+  theme: 'light' | 'dark'
   colorWeek: boolean
   navbar: boolean
   menu: boolean

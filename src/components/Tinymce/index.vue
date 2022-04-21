@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { Message } from '@arco-design/web-vue'
-import { onActivated, onDeactivated, onMounted, onUnmounted, ref } from 'vue'
+import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch, PropType } from 'vue'
 import loadTinymec from './load'
 import plugins from './plugins'
 import toolbar from './toolbar'
@@ -23,6 +23,23 @@ const props = defineProps({
   moduleValue: {
     type: String,
     default: ''
+  },
+  thems: {
+    type: String as PropType<'dark' | 'default'>,
+    default: 'default'
+  },
+  height: {
+    type: [Number, String],
+    validator(value: string | number) {
+      if (typeof value === 'number' && value >= 0) {
+        return true
+      }
+      if (typeof value === 'string' && /\d?(px|vw)/.test(value)) {
+        return true
+      }
+      return false
+    },
+    default: () => 300
   }
 })
 const emit = defineEmits<{
@@ -37,13 +54,14 @@ const init = () => {
   addZh()
   window.tinymce.init({
     selector: `#${props.id}`,
-    skin: 'oxide-dark',
-    content_css: 'dark',
+    skin: props.thems === 'dark' ? 'oxide-dark' : 'oxide',
+    content_css: props.thems,
     language: 'zh_CN',
     body_class: 'panel-body ',
     object_resizing: false,
     toolbar,
     plugins,
+    height: props.height,
     end_container_on_empty_block: true,
     advlist_number_styles: 'default',
     imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
@@ -81,6 +99,17 @@ onMounted(() => {
     init()
   })
 })
+const reset = () => {
+  if (!isInit.value) return
+  destroyTinymce()
+  init()
+}
+watch(
+  () => props.thems,
+  () => {
+    reset()
+  }
+)
 onUnmounted(() => {
   destroyTinymce()
 })
@@ -95,6 +124,9 @@ onDeactivated(() => {
 </script>
 
 <style lang="less">
+.tinymce-textarea {
+  display: none;
+}
 .tinymce-container {
   background-color: inherit;
   /deep/ .mce-tinymce {
