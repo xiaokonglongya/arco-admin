@@ -28,6 +28,5 @@ const appStore = useAppStore()
 const thems = computed(() => {
   return appStore.theme === 'dark' ? appStore.theme : 'default'
 })
-const value = ref('<a href="javascript:alert(&#x27;XSS&#x27;)">跳转...</a>')
-// const value = ref('<p style="text-align: center;">Welcome to the TinyMCE demo!</p>')
+const value = ref('<p style="text-align: center;">Welcome to the TinyMCE demo!</p>')
 </script>
