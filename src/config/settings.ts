@@ -1,7 +1,8 @@
+import { AppState } from '@/store/modules/app/types'
 /**
  * 默认配置
  */
-export default {
+const defaultSettings: AppState = {
   theme: 'light',
   colorWeek: false,
   navbar: true,
@@ -15,3 +16,4 @@ export default {
   device: 'desktop',
   tabBar: false
 }
+export default defaultSettings

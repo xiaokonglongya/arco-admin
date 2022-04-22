@@ -31,9 +31,12 @@ const cacheList = computed(() => {
 .scale-enter-active {
   transition: all 0.5s ease;
 }
-.scale-enter-from,
+.scale-enter-from {
+  opacity: 0;
+  transform: translate(20px);
+}
 .scale-leave-to {
   opacity: 0;
-  transform: scale(0.99);
+  transform: translate(-20px);
 }
 </style>
