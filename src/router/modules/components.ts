@@ -19,6 +19,17 @@ export default {
         label: '富文本',
         icon: 'icon-dashboard'
       }
+    },
+    {
+      path: 'watermark',
+      name: 'Watermark',
+      component: () => import('@/views/components/watermark/index.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: ['*'],
+        label: '水印',
+        icon: 'icon-dashboard'
+      }
     }
   ]
 }
